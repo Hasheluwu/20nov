@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    profile
+{% endblock %}
+
+{% block main %}
+<div class="max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex flex-col items-center py-10 px-8">
+        <!-- Foto de perfil -->
+        <img class="w-32 h-32 mb-6 rounded-full shadow-lg" src="https://ui-avatars.com/api/?name={{ username }}" alt="piensa en lo que hiciste!" class="h-24 w-24 rounded-full">
+
+        <!-- Nombre del usuario -->
+        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">{{ username }}</h3>
+
+        <!-- Género del usuario -->
+        <p class="text-lg text-gray-500 dark:text-gray-400">{{ genre }}</p>
+
+        <!-- Fecha de nacimiento -->
+        <p class="text-lg text-gray-500 dark:text-gray-400">{{ birthday }}</p>
+
+        <!-- Botón para editar perfil o cerrar sesión -->
+        <div class="flex mt-6 space-x-4">
+            <a href="/register" class="inline-flex items-center px-5 py-2.5 text-lg font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-700">Editar perfil</a>
+            <a href="/logout" class="inline-flex items-center px-5 py-2.5 text-lg font-medium text-center text-gray-900 bg-gray-200 rounded-lg hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cerrar sesión</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

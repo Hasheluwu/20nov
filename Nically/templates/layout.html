@@ -1,0 +1,105 @@
+<!-- layout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel ="stylesheet">
+    <link href="../static/styles.css">
+
+</head>
+
+
+<!-- Modal -->
+<div id="errorModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto">
+      <h2 class="text-lg font-semibold text-red-600">Error</h2>
+      <p class="mt-2 text-gray-600" id="errorMessage">Algo salió mal. Por favor, inténtalo de nuevo.</p>
+      <div class="mt-4 flex justify-end">
+        <button onclick="closeModal()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav style="background-color: #333c87;" class="bg-blue-500 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-white text-lg font-bold"> <i class="fa-solid fa-house"></i> Nically</a>
+
+
+            <div class="flex space-x-4">
+                <a href="/wiki" class="text-white hover:bg-blue-700 px-3 py-2 rounded"><i style="padding: 10px;" class="fa-solid fa-landmark"></i>Enciclopedia</a>
+                <a href="/trophy" class="text-white hover:bg-blue-700 px-3 py-2 rounded"><i style="padding: 10px;" class="fa-solid fa-crown"></i>Trofeos</a>
+                <a href="/settings" class="text-white hover:bg-blue-700 px-3 py-2 rounded"><i style="padding: 10px;" class="fa-solid fa-gear"></i>Ajustes</a>
+                <a href="/firstprofile" class="text-white hover:bg-blue-700 px-3 py-2 rounded"><i style="padding: 10px;" class="fa-solid fa-user"></i>Perfil</a>
+                <a href="/register" class="text-white hover:bg-blue-700 px-3 py-2 rounded"><i style="padding: 10px;" class="fa-solid fa-file"></i>Register</a>
+                <a href="/login" class="text-white hover:bg-blue-700 px-3 py-2 rounded"><i style="padding: 10px;" class="fa-solid fa-pen-to-square"></i>Login</a>
+                <a href="/logout" class="text-white hover:bg-blue-700 px-3 py-2 rounded"><i style="padding: 10px;" class="fa-solid fa-user-minus"></i>Logout</a>
+                <button id="dark-mode-toggle" class="text-white hover:bg-blue-700 px-3 py-2 rounded">
+                    <i style="padding: 10px;" class="fa-solid fa-moon"></i>
+                </button>
+
+
+
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-4">
+        {% block main %}{% endblock %}
+    </div>
+
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Load dark mode state from server-side session
+        if ("{{ session.get('dark-mode') }}" === "enabled") {
+            document.documentElement.classList.add('dark-mode');
+        }
+
+        // Attach event listener
+        document.querySelector('#dark-mode-toggle').addEventListener('click', () => {
+            // Toggle dark mode locally
+            document.documentElement.classList.toggle('dark-mode');
+
+            // Send the preference to the server using fetch
+            fetch('/toggle-dark-mode', {
+                method: 'POST'
+            });
+        });
+    });
+</script>
+
+<script>
+    function showModal(message) {
+        const modal = document.getElementById("errorModal");
+        document.getElementById("errorMessage").textContent = message;
+        modal.classList.remove("hidden");
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("errorModal");
+        modal.classList.add("hidden");
+    }
+
+    // Muestra la modal si hay un error pasado desde Flask
+    document.addEventListener("DOMContentLoaded", function() {
+        const errorMessage = "{{ error_message | safe }}";
+        if (errorMessage) {
+            showModal(errorMessage);
+        }
+    });
+</script>
+
+
+
+
+</html>

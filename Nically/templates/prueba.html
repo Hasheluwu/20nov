@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <title>NICALLY - Trivia Nicaragüense</title>
+</head>
+<body>
+    <h1>NICALLY - Trivia Nicaragüense</h1>
+    <div class="container">
+        <!-- Pregunta 1: Opción múltiple -->
+        <h2>¿Cuál es la danza folclórica más famosa de Nicaragua?</h2>
+        <p id="status1"></p>
+
+        <button id="q1_incorrect1">El Güegüense</button>
+        <button id="q1_correct">El Toro Huaco</button>
+        <button id="q1_incorrect2">La Vaquita</button>
+        <button id="q1_incorrect3">El Viejo y la Vieja</button>
+
+        <!-- Pregunta 2: Opción múltiple -->
+        <h2>¿Qué volcán nicaragüense es conocido por su lago de lava?</h2>
+        <p id="status2"></p>
+
+        <button id="q2_correct">Volcán Masaya</button>
+        <button id="q2_incorrect1">Volcán Maderas</button>
+        <button id="q2_incorrect2">Volcán Concepción</button>
+        <button id="q2_incorrect3">Volcán Momotombo</button>
+
+        <!-- Pregunta 3: Opción múltiple -->
+        <h2>¿Cuál es el plato típico nacional de Nicaragua?</h2>
+        <p id="status3"></p>
+
+        <button id="q3_correct">Gallo Pinto</button>
+        <button id="q3_incorrect1">Nacatamal</button>
+        <button id="q3_incorrect2">Vigorón</button>
+        <button id="q3_incorrect3">Quesillo</button>
+
+        <!-- Pregunta 4: Opción múltiple -->
+        <h2>¿Qué poeta nicaragüense es conocido como el "Príncipe de las Letras Castellanas"?</h2>
+        <p id="status4"></p>
+
+        <button id="q4_correct">Rubén Darío</button>
+        <button id="q4_incorrect1">Ernesto Cardenal</button>
+        <button id="q4_incorrect2">Gioconda Belli</button>
+        <button id="q4_incorrect3">Claribel Alegría</button>
+
+        <!-- Pregunta 5: Opción múltiple -->
+        <h2>¿Qué fiesta tradicional se celebra el 19 de julio en Nicaragua?</h2>
+        <p id="status5"></p>
+
+        <button id="q5_incorrect1">La Purísima</button>
+        <button id="q5_correct">Aniversario de la Revolución Sandinista</button>
+        <button id="q5_incorrect2">Fiestas Patrias</button>
+        <button id="q5_incorrect3">El Tope de los Toros</button>
+
+        <!-- Pregunta de respuesta libre -->
+        <h2>¿Cuál es el nombre del ave nacional de Nicaragua?</h2>
+        <p id="status6"></p>
+
+        <input type="text" id="responseValue" placeholder="Escribe tu respuesta">
+        <button id="checkAnswer">Verificar Respuesta</button>
+
+        <script>
+            // Función para deshabilitar botones una vez seleccionada una respuesta
+            function disableButtons(questionId) {
+                let buttons = document.querySelectorAll('button[id^="' + questionId + '"]');
+                buttons.forEach(button => button.disabled = true);
+            }
+
+            // Pregunta 1: Opción múltiple
+            document.querySelector('#q1_correct').onclick = function() {
+                document.querySelector('#status1').innerHTML = "¡Correcto!";
+                this.style.backgroundColor = 'green';
+                disableButtons('q1');
+            };
+            document.querySelectorAll('button[id^="q1_incorrect"]').forEach(button => {
+                button.onclick = function() {
+                    document.querySelector('#status1').innerHTML = "Incorrecto.";
+                    this.style.backgroundColor = 'red';
+                    disableButtons('q1');
+                };
+            });
+
+            // Pregunta 2: Opción múltiple
+            document.querySelector('#q2_correct').onclick = function() {
+                document.querySelector('#status2').innerHTML = "¡Correcto!";
+                this.style.backgroundColor = 'green';
+                disableButtons('q2');
+            };
+            document.querySelectorAll('button[id^="q2_incorrect"]').forEach(button => {
+                button.onclick = function() {
+                    document.querySelector('#status2').innerHTML = "Incorrecto.";
+                    this.style.backgroundColor = 'red';
+                    disableButtons('q2');
+                };
+            });
+
+            // Pregunta 3: Opción múltiple
+            document.querySelector('#q3_correct').onclick = function() {
+                document.querySelector('#status3').innerHTML = "¡Correcto!";
+                this.style.backgroundColor = 'green';
+                disableButtons('q3');
+            };
+            document.querySelectorAll('button[id^="q3_incorrect"]').forEach(button => {
+                button.onclick = function() {
+                    document.querySelector('#status3').innerHTML = "Incorrecto.";
+                    this.style.backgroundColor = 'red';
+                    disableButtons('q3');
+                };
+            });
+
+            // Pregunta 4: Opción múltiple
+            document.querySelector('#q4_correct').onclick = function() {
+                document.querySelector('#status4').innerHTML = "¡Correcto!";
+                this.style.backgroundColor = 'green';
+                disableButtons('q4');
+            };
+            document.querySelectorAll('button[id^="q4_incorrect"]').forEach(button => {
+                button.onclick = function() {
+                    document.querySelector('#status4').innerHTML = "Incorrecto.";
+                    this.style.backgroundColor = 'red';
+                    disableButtons('q4');
+                };
+            });
+
+            // Pregunta 5: Opción múltiple
+            document.querySelector('#q5_correct').onclick = function() {
+                document.querySelector('#status5').innerHTML = "¡Correcto!";
+                this.style.backgroundColor = 'green';
+                disableButtons('q5');
+            };
+            document.querySelectorAll('button[id^="q5_incorrect"]').forEach(button => {
+                button.onclick = function() {
+                    document.querySelector('#status5').innerHTML = "Incorrecto.";
+                    this.style.backgroundColor = 'red';
+                    disableButtons('q5');
+                };
+            });
+
+            // Manejador para la pregunta de respuesta libre
+            document.querySelector('#checkAnswer').onclick = function() {
+                let response = document.querySelector('#responseValue').value.toLowerCase();
+                let status6 = document.querySelector('#status6');
+                if (response === 'guardabarranco') {
+                    status6.innerHTML = '¡Correcto! Es el Guardabarranco.';
+                    document.querySelector('#responseValue').style.backgroundColor = 'green';
+                } else {
+                    status6.innerHTML = 'Incorrecto. La respuesta correcta es el Guardabarranco.';
+                    document.querySelector('#responseValue').style.backgroundColor = 'red';
+                }
+            };
+        </script>
+    </div>
+</body>
+</html>
+

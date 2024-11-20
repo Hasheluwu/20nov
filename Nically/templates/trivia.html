@@ -1,0 +1,33 @@
+{% extends "trivia_layout.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-16" id="trivia-container">
+    <!-- Contenedor para la trivia -->
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl mx-auto mb-8">
+        <h2 class="text-3xl font-semibold text-center mb-4">{{ trivia.title }}</h2>
+        <p class="text-sm text-gray-500 text-center mb-4">
+            Pregunta {{ question_num }} de {{ total_questions }}
+        </p>
+        <p id="question-text" class="text-lg font-medium text-center">
+            {{ question['question_text'] }}
+        </p>
+    </div>
+
+    <!-- Contenedor para las respuestas -->
+    <div class="bg-gray-100 rounded-lg shadow-md p-6 w-full max-w-4xl mx-auto">
+        {% for response in responses %}
+        <form
+            method="POST"
+            action="{{ url_for('register_response', trivia_id=trivia['trivia_id'], response_id=response['response_id']) }}"
+        >
+            <button
+                type="submit"
+                class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded w-full"
+            >
+                {{ response['response_text'] }}
+            </button>
+        </form>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

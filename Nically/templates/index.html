@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Trivia{% endblock %}
+{% block main %}
+<div class="container mx-auto mt-8 px-4 md:px-16">
+    {% for category in categories %}
+    <h2 class="text-center text-3xl font-semibold mb-8">{{ category.name }}</h2>
+    <div class="grid grid-cols-2 gap-12">
+        {% for trivia in trivias if trivia.category_name == category.name %}
+        <div class="flex flex-col items-center space-y-6">
+            <h3 class="text-2xl font-semibold text-center">{{ trivia.title }}</h3>
+            <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl h-96 flex flex-col justify-center items-center space-y-6">
+                <img src="{{ trivia.image }}" alt="Imagen de trivia" class="w-[400px] h-[250px] rounded-lg">
+                <p class="text-lg font-medium text-center">Trivia 0/7 (preguntas)</p>
+                <a href="/trivia/{{ trivia.trivia_id }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Empezar</a>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
